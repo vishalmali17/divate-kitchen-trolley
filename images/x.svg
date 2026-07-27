@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+	<title>fb</title>
+	<defs>
+		<image width="15" height="14" id="img1" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNSAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjgxMzQgMC4wMDY1MDU5N0gxNC4xMTI2TDkuMDg5NSA1LjkzMzA5TDE1IDE0SDEwLjM3MTRMNi43NDQ5NiA5LjEwNzgxTDIuNTk3OSAxNEgwLjI5ODczOUw1LjY3MjI3IDcuNjUzMTZMMCAwSDQuNzQ1OEw4LjAyMzExIDQuNDcwNjNMMTEuODEzNCAwLjAwNjUwNTk3Wk0xMS4wMDY3IDEyLjU3NzlIMTIuMjgxMUw0LjA1NjMgMS4zNTE4NkgyLjY4ODY2TDExLjAwNjcgMTIuNTc3OVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Vector (2)" href="#img1" transform="matrix(1,0,0,1,5,5)"/>
+</svg>
