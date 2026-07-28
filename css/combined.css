@@ -22102,3 +22102,77 @@ section.solutions-space-section-products {
 .facadeInfo h2 {
   margin-top: 20px;
 }
+ .fingertips-section {
+        position: relative;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+    }
+    .fingertips-section picture {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
+    }
+    .fingertips-section picture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        min-height: 400px;
+    }
+    .faqs-box .accordion-button:not(.collapsed) {
+        color: #333;
+        background: transparent;
+        box-shadow: none;
+    }
+    .faqs-box .accordion-button:focus {
+        box-shadow: none;
+        border-color: transparent;
+    }
+    .faqs-box .accordion-item {
+        border: none;
+        background: transparent;
+    }
+    @media (max-width: 768px) {
+        .fingertips-section {
+            min-height: 300px;
+        }
+        .fingertips-section picture img {
+            min-height: 300px;
+        }
+        .faqs-box {
+            padding: 15px !important;
+        }
+        .faqs-box .accordion-button {
+            font-size: 18px !important;
+            padding: 10px 15px !important;
+        }
+        .accordion-body ul li {
+            padding: 5px 12px !important;
+            font-size: 13px;
+        }
+    }
+    @media (max-width: 480px) {
+        .fingertips-section {
+            min-height: 250px;
+        }
+        .fingertips-section picture img {
+            min-height: 250px;
+        }
+        .faqs-box {
+            padding: 10px !important;
+        }
+        .faqs-box .accordion-button {
+            font-size: 16px !important;
+            padding: 8px 12px !important;
+        }
+        .accordion-body ul li {
+            padding: 4px 10px !important;
+            font-size: 11px;
+        }
+        .accordion-body ul {
+            gap: 5px !important;
+        }
+    }
