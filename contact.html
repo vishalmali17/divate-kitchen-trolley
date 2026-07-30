@@ -297,16 +297,26 @@
           </div>
         </div>
 
-        <!-- Form Submission Success Modal -->
+        <!-- Success Popup Modal -->
         <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
               <div class="modal-body text-center p-5">
-                <div class="success-icon" style="font-size: 60px; color: #28a745; margin-bottom: 20px;">✓</div>
-                <h3>Thank You!</h3>
-                <p>Your estimate request has been submitted successfully.</p>
-                <p>We'll contact you within 24 hours with a free quote.</p>
-                <button type="button" class="btn btn-primary mt-3" data-bs-dismiss="modal">Close</button>
+                <div style="width: 80px; height: 80px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                  <i class="fas fa-check-circle" style="font-size: 44px; color: #28a745;"></i>
+                </div>
+                <h3 style="color: #1a5f7a; font-weight: 700; margin-bottom: 12px;">Thank You!</h3>
+                <p style="font-size: 16px; color: #444; margin-bottom: 8px;">We have received your estimate request and will contact you soon.</p>
+                <p style="font-size: 15px; color: #666; margin-bottom: 20px;">For a faster response, please call us directly.</p>
+                <a href="tel:+919273727332" style="display: inline-block; background: #25d366; color: white; padding: 12px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 16px; margin-bottom: 15px; transition: all 0.3s ease;">
+                  <i class="fas fa-phone" style="margin-right: 10px;"></i> Call +91 92737 27332
+                </a>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                  <a href="https://wa.me/919273727332?text=I%20just%20submitted%20an%20estimate%20request%20on%20your%20website.%20I%20would%20like%20to%20follow%20up." target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25d366; color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
+                    <i class="fab fa-whatsapp" style="font-size: 18px;"></i> WhatsApp
+                  </a>
+                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius: 50px; padding: 10px 30px; font-weight: 500;">Close</button>
+                </div>
               </div>
             </div>
           </div>
@@ -323,13 +333,12 @@
 
         <section class="need-assistance-section">
           <div class="container">
-            <!-- FormSubmit.co form -->
-            <form action="https://formsubmit.co/santoshdivte25@gmail.com" method="POST" id="contactform" class="wow fadeInUp" data-wow-duration="600ms" data-wow-delay="1200ms">
+            <!-- FormSubmit.co form with AJAX -->
+            <form id="contactform" class="wow fadeInUp" data-wow-duration="600ms" data-wow-delay="1200ms">
               <!-- FormSubmit configuration -->
               <input type="hidden" name="_subject" value="New Estimate Request - Divate Kitchen Trolley Website">
               <input type="hidden" name="_template" value="table">
               <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="https://www.divatekitchentrolley.in/thank-you.html">
               <input type="hidden" name="_autoresponse" value="Thank you for contacting Divate Kitchen Trolley! We have received your estimate request and will get back to you within 24 hours with a free quote. For immediate assistance, call us at +91 92737 27332.">
               
               <div class="row">
@@ -550,21 +559,21 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <script>
-    // Form validation and submission
+    // Form submission with AJAX - shows popup instead of navigating
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.getElementById('contactform');
       const successModal = new bootstrap.Modal(document.getElementById('successModal'));
       
-      // Remove FormSubmit default behavior to show custom modal
       form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
         // Basic validation
-        const name = document.getElementById('name').value;
-        const contact = document.getElementById('contact').value;
-        const email = document.getElementById('email').value;
-        const city = document.getElementById('city').value;
+        const name = document.getElementById('name').value.trim();
+        const contact = document.getElementById('contact').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const city = document.getElementById('city').value.trim();
         
         if (!name || !contact || !email || !city) {
-          e.preventDefault();
           alert('Please fill in all required fields (marked with *)');
           return false;
         }
@@ -572,7 +581,6 @@
         // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-          e.preventDefault();
           alert('Please enter a valid email address');
           return false;
         }
@@ -581,10 +589,41 @@
         const phoneRegex = /^[6-9]\d{9}$/;
         const cleanPhone = contact.replace(/\D/g, '');
         if (!phoneRegex.test(cleanPhone)) {
-          e.preventDefault();
           alert('Please enter a valid 10-digit Indian mobile number');
           return false;
         }
+        
+        // Submit via AJAX
+        const formData = new FormData(form);
+        const submitBtn = document.getElementById('subbtn');
+        const originalText = submitBtn.querySelector('span').textContent;
+        
+        // Show loading state
+        submitBtn.querySelector('span').textContent = 'Submitting...';
+        submitBtn.disabled = true;
+        
+        fetch('https://formsubmit.co/santoshdivte25@gmail.com', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            // Show success modal
+            successModal.show();
+            form.reset(); // Clear the form
+          } else {
+            alert('Something went wrong. Please try again or call us directly.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Network error. Please check your connection or call us directly at +91 92737 27332.');
+        })
+        .finally(() => {
+          // Restore button state
+          submitBtn.querySelector('span').textContent = originalText;
+          submitBtn.disabled = false;
+        });
       });
       
       // Add some styling for the contact buttons
@@ -660,6 +699,22 @@
         .seo-content-text h3 {
           color: #1a5f7a;
           margin-bottom: 20px;
+        }
+        /* Modal hover effects */
+        .modal-content a:hover {
+          transform: scale(1.05);
+          opacity: 0.95;
+        }
+        .modal-content a {
+          transition: all 0.3s ease;
+        }
+        /* Popup animation */
+        .modal.fade .modal-dialog {
+          transform: scale(0.9);
+          transition: transform 0.3s ease-out;
+        }
+        .modal.show .modal-dialog {
+          transform: scale(1);
         }
       `;
       document.head.appendChild(style);
